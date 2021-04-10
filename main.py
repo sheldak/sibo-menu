@@ -8,9 +8,10 @@ PRODUCTS_NUMBER_RANGE = (5, 15)
 
 
 class Product:
-    def __init__(self, name, harmfulness, calories, carbs, protein, fat):
+    def __init__(self, name, food_type, calories, carbs, protein, fat, harmfulness=None):
         self.name = name
         self.harmfulness = harmfulness
+        self.food_type = food_type
         self.nutritional_values = {
             "calories": calories,
             "carbs": carbs,
