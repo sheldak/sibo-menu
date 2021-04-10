@@ -1,4 +1,4 @@
-from main import Product
+from product import Product
 from typing import Set, List
 import pandas as pd
 
@@ -27,7 +27,7 @@ class NutritionDataLoader:
     def generate_products(self, categories: List[str], category_counts: List[int]) -> List[Product]:
 
         rows = [self.data[self.data["food_type"].str.contains(category)].sample(n=category_count)
-                for category in categories for category_count in category_counts]
+                for category, category_count in zip(categories, category_counts)]
 
         products = [Product(
             name=row["name"].values[0],
