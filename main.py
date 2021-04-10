@@ -53,7 +53,7 @@ class Model:
             element_weight = 0
             for product_name in solution.products.keys():
                 element_weight += \
-                    solution.products[product_name][0].nutritional_values[element] * solution.products[product_name][1]
+                    solution.products[product_name][0].nutritional_values[element] * solution.products[product_name][1] / 100
 
             if element_weight < self.restrictions[element][0] or element_weight > self.restrictions[element][1]:
                 return False
