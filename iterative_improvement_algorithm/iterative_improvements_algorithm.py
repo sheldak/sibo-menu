@@ -7,7 +7,7 @@ class IterativeImprovementsAlgorithm:
     def __init__(self, restrictions: Dict[str, Tuple[int, int]],
                  restrictions_weights: Dict[str, float],
                  max_steps: int, step_rate: float,
-                 rate_scheduler=lambda _, x: x):
+                 rate_scheduler=lambda _epoch, rate: rate):
 
         self.restrictions = restrictions
         self.restrictions_weights = restrictions_weights
