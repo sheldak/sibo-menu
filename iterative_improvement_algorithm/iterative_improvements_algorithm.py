@@ -6,16 +6,19 @@ class IterativeImprovementsAlgorithm:
 
     def __init__(self, restrictions: Dict[str, Tuple[int, int]],
                  restrictions_weights: Dict[str, float],
-                 max_steps: int, step_rate: float):
+                 max_steps: int, step_rate: float,
+                 rate_scheduler=lambda _, x: x):
 
         self.restrictions = restrictions
         self.restrictions_weights = restrictions_weights
         self.max_steps = max_steps
         self.step_rate = step_rate
+        self.rate_scheduler = rate_scheduler
 
-    def _update_solution(self, restriction: str, solution: Solution, slope: int):
+    def _update_solution(self, restriction: str, solution: Solution, slope: int, epoch: int):
         for product_name, (product_data, product_amount) in solution.products.items():
-            product_amount += self.step_rate * slope * product_data.nutritional_values[restriction] / 100
+            product_amount += self.rate_scheduler(epoch, self.step_rate) * slope \
+                              * product_data.nutritional_values[restriction] / 100
             solution.products[product_name] = (product_data, product_amount)
 
     def _dominant_restriction(self, solution: Solution) -> Union[Tuple[str, int], None]:
@@ -39,9 +42,9 @@ class IterativeImprovementsAlgorithm:
         return violations[-1][0], violations[-1][2]
 
     def correct_solutions(self, solutions: List[Solution]):
-        for _ in range(self.max_steps):
+        for epoch in range(self.max_steps):
             for solution in solutions:
                 dominant_restriction = self._dominant_restriction(solution)
                 if dominant_restriction is not None:
                     restriction, slope = dominant_restriction
-                    self._update_solution(restriction, solution, slope)
+                    self._update_solution(restriction, solution, slope, epoch)
