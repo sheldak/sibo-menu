@@ -26,17 +26,19 @@ class NutritionDataLoader:
 
     def generate_products(self, categories: List[str], category_counts: List[int]) -> List[Product]:
 
-        rows = [self.data[self.data["food_type"].str.contains(category)].sample(n=category_count)
+        rows = pd.concat(
+                [self.data[self.data["food_type"].str.contains(category)].sample(n=category_count)
                 for category, category_count in zip(categories, category_counts)]
+                )
 
         products = [Product(
-            name=row["name"].values[0],
-            food_type=row["food_type"].values[0],
-            calories=row["calories"].values[0],
-            carbs=row["carbs"].values[0],
-            protein=row["protein"].values[0],
-            fat=row["fat"].values[0]
-        ) for row in rows]
+            name=row["name"],
+            food_type=row["food_type"],
+            calories=row["calories"],
+            carbs=row["carbs"],
+            protein=row["protein"],
+            fat=row["fat"]
+        ) for _, row in rows.iterrows()]
 
         return products
 
