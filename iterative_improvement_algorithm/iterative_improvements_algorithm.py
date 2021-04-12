@@ -48,3 +48,6 @@ class IterativeImprovementsAlgorithm:
                 if dominant_restriction is not None:
                     restriction, slope = dominant_restriction
                     self._update_solution(restriction, solution, slope, epoch)
+
+        corrected = [solution for solution in solutions if self._dominant_restriction(solution) is None]
+        return corrected

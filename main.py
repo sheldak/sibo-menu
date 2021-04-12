@@ -49,7 +49,9 @@ class Model:
                 attempt += 1
 
     def validate(self, solution):
-        for element in list(self.restrictions.keys())[:-1]:
+        for element in list(self.restrictions.keys()):
+            if element not in list(solution.products.values())[0][0].nutritional_values:
+                continue
             element_weight = 0
             for product_name in solution.products.keys():
                 element_weight += \

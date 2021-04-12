@@ -4,6 +4,8 @@ from random import randint
 from product import Solution
 from main import Model
 
+import numpy as np
+
 DATA_FILE = "../nutrition_data/nutrition_database.csv"
 PRODUCTS_NUMBER_RANGE = (5, 15)
 MIN_GRAMS = 50
@@ -19,10 +21,10 @@ CATEGORIES = [
 ]
 
 restrictions = {
-    "calories": (1500, 2500),
-    "carbs": (220, 320),
-    "protein": (50, 80),
-    "fat": (60, 80)
+    "calories": (2100, 2500),
+    "carbs": (260, 320),
+    "protein": (65, 80),
+    "fat": (70, 90)
 }
 
 restrictions_weights = {
@@ -37,7 +39,7 @@ products_data_loader.initial_preprocessing()
 model = Model(products_data_loader, restrictions)
 
 
-def run_tests(step_rate, max_steps, num_initial):
+def run_tests(step_rate, max_steps, num_initial, rate_scheduler=lambda _epoch, rate: rate):
     initial_solutions = []
     for _ in range(num_initial):
         products_number = randint(PRODUCTS_NUMBER_RANGE[0], PRODUCTS_NUMBER_RANGE[1])
@@ -54,18 +56,19 @@ def run_tests(step_rate, max_steps, num_initial):
     incorrect_count = len([sol for sol in initial_solutions if not model.validate(sol)])
     print("before: " + str(incorrect_count) + " out of " + str(num_initial))
 
-    improver = IterativeImprovementsAlgorithm(restrictions, restrictions_weights, max_steps, step_rate)
+    improver = IterativeImprovementsAlgorithm(restrictions, restrictions_weights, max_steps, step_rate, rate_scheduler)
     improver.correct_solutions(initial_solutions)
 
     incorrect_count = len([sol for sol in initial_solutions if not model.validate(sol)])
     print("after: " + str(incorrect_count) + " out of " + str(num_initial))
 
 
-parameters = [(5, 200, 1000), (5, 300, 1000), (7, 200, 1000), (7, 300, 1000),
-              (3, 200, 1000), (3, 300, 1000), (9, 200, 1000), (9, 300, 1000),
-              (5, 200, 10000), (5, 300, 10000), (7, 200, 10000), (7, 300, 10000),
-              (3, 200, 10000), (3, 300, 10000), (9, 200, 10000), (9, 300, 10000)]
+sched_1 = lambda epoch, rate: rate * np.exp(-epoch / (1000 * rate))
+sched_2 = lambda epoch, rate: rate - np.exp(epoch / rate)
 
-for s, m, n in parameters:
+parameters = [(15, 200, 1000, sched_1), (15, 300, 1000, sched_1), (15, 500, 1000, sched_1), (15, 700, 1000, sched_1),
+              (9, 200, 1000, sched_1), (9, 300, 1000, sched_1), (9, 500, 1000, sched_1), (9, 700, 1000, sched_1)]
+
+for s, m, n, r in parameters:
     print("Parameters: step rate " + str(s) + " max steps " + str(m))
     run_tests(s, m, n)
