@@ -10,7 +10,6 @@ class LooseLimitsAlgorithm:
     restrictions: Dict[str, Tuple[int, int]]
     looseness_functions: Dict[str, Callable[[int, int, int], float]] 
     max_steps: int
-    max_looseness: float
     min_grams: int
     max_grams: int
 

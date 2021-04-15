@@ -50,13 +50,14 @@ products_data_loader = NutritionDataLoader(DATA_FILE)
 products_data_loader.initial_preprocessing()
 model = Model(products_data_loader, restrictions)
 
-algo = LooseLimitsAlgorithm(restrictions, looseness_functions, 100, 50, MIN_GRAMS, MAX_GRAMS)
+algo = LooseLimitsAlgorithm(restrictions, looseness_functions, 100, MIN_GRAMS, MAX_GRAMS)
 solutions = [
     algo.look_for_solution(products_data_loader.generate_products(CATEGORIES, [3, 2, 2, 2, 2, 2])) for _ in range(100)
 ]
 
-# print(len(list(filter(lambda t: t[1] == 0, solutions)))/len(solutions))
-print(len(list(filter(lambda t: t[1] < 0.1, solutions)))/len(solutions))
+print("Correct solutions:")
+print(len(list(filter(lambda t: t[1] == 0, solutions)))/len(solutions))
+print()
 
-for sol, amount in filter(lambda t: 0 < t[1] < 0.1, solutions):
-    print(algo.calculate_nutritions(sol).items(), amount)
+print("Solutions with looseness < 0.1:")
+print(len(list(filter(lambda t: t[1] < 0.1, solutions)))/len(solutions))
