@@ -59,7 +59,7 @@ class LooseLimitsAlgorithm:
         best_solution = solution
         best_solution_score = self.calculate_looseness(solution)
         temp = 0.1
-        for _ in range(100):
+        for _ in range(self.max_steps):
             solution = Solution()
 
             factor = self.calculate_nutrition_avg_factor(best_solution)
