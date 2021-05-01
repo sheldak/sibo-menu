@@ -7,7 +7,7 @@ from main import Model
 import numpy as np
 
 DATA_FILE = "../nutrition_data/nutrition_database.csv"
-PRODUCTS_NUMBER_RANGE = (5, 15)
+PRODUCTS_NUMBER_RANGE = (12, 15)
 MIN_GRAMS = 50
 MAX_GRAMS = 2000
 
@@ -21,10 +21,10 @@ CATEGORIES = [
 ]
 
 restrictions = {
-    "calories": (2100, 2500),
-    "carbs": (260, 320),
-    "protein": (65, 80),
-    "fat": (70, 90)
+    "calories": (1500, 2500),
+    "carbs": (220, 320),
+    "protein": (50, 80),
+    "fat": (60, 90)
 }
 
 restrictions_weights = {
@@ -66,8 +66,8 @@ def run_tests(step_rate, max_steps, num_initial, rate_scheduler=lambda _epoch, r
 sched_1 = lambda epoch, rate: rate * np.exp(-epoch / (1000 * rate))
 sched_2 = lambda epoch, rate: rate - np.exp(epoch / rate)
 
-parameters = [(15, 200, 1000, sched_1), (15, 300, 1000, sched_1), (15, 500, 1000, sched_1), (15, 700, 1000, sched_1),
-              (9, 200, 1000, sched_1), (9, 300, 1000, sched_1), (9, 500, 1000, sched_1), (9, 700, 1000, sched_1)]
+parameters = [(5, 200, 1000, sched_1), (5, 300, 1000, sched_1), (7, 200, 1000, sched_1), (7, 300, 1000, sched_1),
+              (9, 200, 1000, sched_1), (9, 300, 1000, sched_1)]
 
 for s, m, n, r in parameters:
     print("Parameters: step rate " + str(s) + " max steps " + str(m))
