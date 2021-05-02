@@ -17,7 +17,7 @@ CATEGORIES = [
     "Fruits"
 ]
 
-DATA_FILE = "nutrition_data/nutrition_database.csv"
+DATA_FILE = "nutrition_data/complete_database.csv"
 
 
 class Model:

@@ -1,0 +1,101 @@
+﻿ID;name;Food Group;Calories;Fat (g);Protein (g);Carbohydrate (g);Sugars (g);Safety Limit (g)
+1;Bacon;Meats;502;45,5;19,7;1,9;0;60
+2;Beef;Meats;250;15;26;0;0;125
+3;Chicken;Meats;239;14;27;0;0;125
+4;Chorizo;Meats;455;38;24;1,9;0;60
+5;Pork;Meats;242;14;27;0;0;125
+6;Lamb;Meats;294;21;25;0;0;125
+7;Salmon;Meats;208;13;20;0;0;80
+8;Sardines in oil;Meats;125;7;14,8;0;0;75
+9;Turkey;Meats;188;7;29;0;0;125
+10;Tuna in brine;Meats;109;0,6;24,9;0;0;120
+11;Sausage;Meats;346;31;14;0;0;200
+12;Duck liver;Meats;130;4,6;18,7;3,5;0;20
+13;Prawns;Meats;99;0,3;29;0,2;0;60
+14;Country Terrine ;Meats;227;15;22;1;0;45
+15;Foie Grass;Meats;462;44;11;4,7;0;20
+16;Tuna in oil;Meats;160;9;20;0;0;130
+17;Eggs;Dairy and Egg Products;155;11;13;1,1;0;117
+18;Butter;Dairy and Egg Products;716;81;0,9;0;0,1;19
+19;Buttermilk;Dairy and Egg Products;40;0,9;3,3;0;4,8;16
+20;Cheese, Swiss;Dairy and Egg Products;380;28;27;3,7;1,3;40
+21;Cheese, brie, French;Dairy and Egg Products;333;28;21;0;0,5;40
+22;Cheese, cottage, creamed;Dairy and Egg Products;98;4,3;11;0,7;2,7;40
+23;Cheese, garlic and herb ;Dairy and Egg Products;315;28;7;7;0;20
+24;Cheese, halloumi;Dairy and Egg Products;322;26;28;0;1,8;40
+25;Cheese, mozarella;Dairy and Egg Products;280;17;28;1,9;1,2;40
+26;Kefir;Dairy and Egg Products;110;2;11;12;12;23
+27;Milk, cow;Dairy and Egg Products;42;1;3,4;0;5;20
+28;Milk, goat;Dairy and Egg Products;68;4,1;3,6;0;4,5;30
+29;Milk, oat;Dairy and Egg Products;41;0,1;0,1;0;7,2;30
+30;Quark;Dairy and Egg Products;63;0,2;11,5;0;3,5;40
+31;Yoghurt, natural;Dairy and Egg Products;61;3,3;3,5;0;4,7;20
+32;Yoghurt, greek;Dairy and Egg Products;117;9,2;4;0;5,04;23
+33;Yoghurt, indian;Dairy and Egg Products;62;3,1;4,1;0;4,4;12
+34;Cheese, ricotta;Dairy and Egg Products;174;13;11;0;3;40
+35;Cheese, feta;Dairy and Egg Products;263;21;14;0;4,1;40
+36;Oatmeal;Grains and Pasta;363;6,9;17;66,3;0;105
+37;Quinoa;Grains and Pasta;368;6,1;14;64;0;155
+38;Rice, basmati;Grains and Pasta;354;0,6;7;78,5;0;190
+39;Rice, brown;Grains and Pasta;362;2,7;7,5;76;0;180
+40;Tortillas, corn;Grains and Pasta;218;2,9;6;45;0,6;57
+41;Pasta, wheat;Grains and Pasta;348;1,4;14,53;75;0;74
+42;Pasta, spelt;Grains and Pasta;338;2,4;15;63,2;6,8;85
+43;Pasta, gluten free;Grains and Pasta;348;1,4;14,53;75;0;145
+44;Noodles, wheat;Grains and Pasta;120;1,37;5,31;23,3;0,2;84
+45;Muesli;Grains and Pasta;340;4,9;9,7;46,8;31;28
+46;Corn flakes;Grains and Pasta;378;0,9;7;76;8;15
+47;cous cous;Grains and Pasta;376;0,6;13;67;10;37
+48;Cereal, granola;Grains and Pasta;408;11,3;9,22;46,58;25,81;26
+49;Bread, wheat, multigrain;Grains and Pasta;260;4;12;42;4;34
+50;Bread, spelt;Grains and Pasta;246;1,7;10,6;51;0;70
+51;Bread, wheat white;Grains and Pasta;264;3,2;9;44;5;24
+52;Bread, pumpernikel;Grains and Pasta;250;3,1;9;47,5;0,5;50
+53;Bread, corn;Grains and Pasta;330;10;7;38;16;35
+54;Bread, gluten free;Grains and Pasta;280;8;8;44;0;50
+55;Asparagus;Vegetables;20;0,1;2,2;2;1,9;7
+56;Beans;Vegetables;347;1,2;21;60,9;2,1;75
+57;Beetroot;Vegetables;43;0,2;1,6;3;7;20
+58;Pepper;Vegetables;39;0,4;1,9;4;5;75
+59;Garlic;Vegetables;149;0,5;6,4;32;1;3
+60;Broccoli;Vegetables;33;0,4;2,8;5,3;1,7;45
+61;Brussels;Vegetables;42;0,3;3,4;6,8;2,2;38
+62;Carrot;Vegetables;41;0,2;0,9;5,3;4,7;75
+63;Celery;Vegetables;14;0,2;0,7;2,7;1,3;10
+64;Cabbage;Vegetables;24;0,1;1,3;2,8;3,2;75
+65;Corn flakes;Vegetables;357;0,4;8;74;10;38
+66;Courgette;Vegetables;16;0,3;1,2;0,6;2,5;65
+67;Cucumber;Vegetables;45;0;2;0;11;75
+68;Onion;Vegetables;39;0,1;1,1;4,8;4,2;6
+69;Potato;Vegetables;76;0,1;2;16,2;0,8;75
+70;Pumpkin;Vegetables;26;0,1;1;4,2;2,8;45
+71;Tomato;Vegetables;17;0,2;0,9;1,3;2,6;119
+72;Zucchini;Vegetables;16;0,3;1,2;0,6;2,5;65
+73;Peas;Vegetables;81;0,4;5;8;6;20
+74;Atrichoke;Vegetables;47;0,2;3,3;10;1;15
+75;Cauliflower;Vegetables;24;0,3;1,9;3,1;1,9;75
+76;Peanut butter;Fats and Oils;588;50;25;9;20;19
+77;Mayonnaise;Fats and Oils;679;75;1;0;0,6;40
+78;Oil, olive;Fats and Oils;884;100;0;0;0;18
+79;Oil, sunflower;Fats and Oils;884;100;0;0;0;18
+80;Oil, peanut;Fats and Oils;884;100;0;0;0;18
+81;Oil, rice;Fats and Oils;884;100;0;0;0;18
+82;Ghee;Fats and Oils;880;99,8;0,2;0;0;19
+83;Oil, truffle;Fats and Oils;900;91,5;0,1;0;0,1;5
+84;Remoulade;Fats and Oils;305;28,58;1,09;7,88;5,53;30
+85;Apple;Fruits;52;0,2;0,3;4;10;30
+86;Apricot;Fruits;48;0,4;1,4;2;9;16
+87;Banana, ripped;Fruits;89;0,3;1,1;10,6;12,2;35
+88;Blacbkerry;Fruits;43;0,5;1,4;5,1;4,9;4
+89;Clementine;Fruits;47;0,2;0,9;3;9;86
+90;Cherries;Fruits;52;0,3;1;4;8;20
+91;Figs;Fruits;43;0,3;1,3;5,5;4;30
+92;Grapes;Fruits;66;0,4;0,6;1;16;150
+93;Kiwi;Fruits;60;0,5;1,1;6;9;150
+94;Mango;Fruits;59;0,4;0,8;1;14;40
+95;Pear;Fruits;57;0,1;0,4;5;10;160
+96;Strawberry;Fruits;32;0,3;0,7;3,1;4,9;150
+97;Watermelon;Fruits;30;0,2;0,6;2;6;15
+98;Plum;Fruits;46;0,3;0,7;1,1;9,9;10
+99;Rasberry;Fruits;52;0,7;1,2;7,6;4,4;60
+100;Pineapple;Fruits;50;0,1;0,5;3;10;140

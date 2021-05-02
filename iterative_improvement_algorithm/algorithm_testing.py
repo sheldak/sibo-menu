@@ -6,9 +6,9 @@ from main import Model
 
 import numpy as np
 
-DATA_FILE = "../nutrition_data/nutrition_database.csv"
+DATA_FILE = "../nutrition_data/complete_database.csv"
 PRODUCTS_NUMBER_RANGE = (12, 15)
-MIN_GRAMS = 50
+MIN_GRAMS = 5
 MAX_GRAMS = 2000
 
 CATEGORIES = [
@@ -21,10 +21,10 @@ CATEGORIES = [
 ]
 
 restrictions = {
-    "calories": (1500, 2500),
-    "carbs": (220, 320),
-    "protein": (50, 80),
-    "fat": (60, 90)
+    "calories": (2200, 2500),
+    "carbs": (280, 320),
+    "protein": (70, 80),
+    "fat": (75, 90)
 }
 
 restrictions_weights = {
