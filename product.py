@@ -1,7 +1,7 @@
 class Product:
-    def __init__(self, name, food_type, calories, carbs, protein, fat, harmfulness=None):
+    def __init__(self, name, food_type, calories, carbs, protein, fat, safety_limit=None):
         self.name = name
-        self.harmfulness = harmfulness
+        self.safety_limit = safety_limit
         self.food_type = food_type
         self.nutritional_values = {
             "calories": calories,
