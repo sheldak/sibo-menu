@@ -1,6 +1,7 @@
 from random import randint
 from nutrition_data.nutrition_data_loader import NutritionDataLoader
 from product import Solution
+from genetic_operations import mutate, cross
 
 CALORIES_RANGE = (1500, 2500)
 CARBS_RANGE = (220, 320)
@@ -84,6 +85,9 @@ def main():
 
     for solution in model.solutions:
         print(solution)
+
+    print()
+    print(mutate(cross(model.solutions[:3], 3, True), 2, 15))
 
 
 if __name__ == "__main__":
