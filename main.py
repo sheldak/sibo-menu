@@ -1,22 +1,12 @@
-from random import randint
 from nutrition_data.nutrition_data_loader import NutritionDataLoader
-from product import Solution
 from genetic_operations import mutate, cross
+from naive_initialization.naive_initialization import generate_naively
 
 CALORIES_RANGE = (1500, 2500)
 CARBS_RANGE = (220, 320)
 PROTEIN_RANGE = (50, 80)
 FAT_RANGE = (60, 80)
 PRODUCTS_NUMBER_RANGE = (5, 15)
-
-CATEGORIES = [
-    "Vegetables",
-    "Meats",
-    "Dairy and Egg Products",
-    "Fats and Oils",
-    "Grains and Pasta",
-    "Fruits"
-]
 
 DATA_FILE = "nutrition_data/complete_database.csv"
 
@@ -26,28 +16,6 @@ class Model:
         self.products_data_loader = products_data_loader
         self.restrictions = restrictions
         self.solutions = []
-
-    def generate_naively(self, solutions_number):
-        max_grams = 2000
-        max_attempts = 1000
-
-        while len(self.solutions) < solutions_number:
-            products_number = randint(self.restrictions["products_number"][0], self.restrictions["products_number"][1])
-            products = self.products_data_loader.generate_products(
-                CATEGORIES, [max(1, products_number // len(CATEGORIES))] * len(CATEGORIES)
-            )
-
-            attempt = 0
-            while attempt <= max_attempts:
-                solution = Solution()
-                for product in products:
-                    solution.add(product, randint(50, max_grams // len(products)))
-
-                if self.validate(solution):
-                    self.solutions.append(solution)
-                    break
-
-                attempt += 1
 
     def validate(self, solution):
         for element in list(self.restrictions.keys()):
@@ -81,13 +49,13 @@ def main():
     }
 
     model = Model(products_loader, restrictions)
-    model.generate_naively(10)
+    generate_naively(model, 2)
 
     for solution in model.solutions:
         print(solution)
 
     print()
-    print(mutate(cross(model.solutions[:3], 3, True), 2, 15))
+    print(mutate(cross(model.solutions[:2], 3, True), 2, 15))
 
 
 if __name__ == "__main__":
