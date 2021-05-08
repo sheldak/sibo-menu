@@ -66,7 +66,7 @@ def main():
         )[:config['initial_population_size']]
         pickle.dump(initial_population, open('initial_population.pkl', 'w+b'))
 
-    genetic_algorithm.run_evolution(
+    evolved_population = genetic_algorithm.run_evolution(
         epoch_count=config['epoch_count'],
         scoring_params=config['scoring_params'],
         selection_params=config['selection_params'],
@@ -74,6 +74,7 @@ def main():
         binary_op_params=config['binary_op_params'],
         initial_population=initial_population
     )
+    pickle.dump(evolved_population, open('evolved_population.pkl', 'w+b'))
 
 
 if __name__ == "__main__":
