@@ -1,12 +1,10 @@
 from nutrition_data.nutrition_data_loader import NutritionDataLoader
 from loose_limits_algorithm.loose_limits_algorithm import LooseLimitsAlgorithm
-from random import randint
-from product import Solution
 from main import Model
 
 import numpy as np
 
-DATA_FILE = "./nutrition_data/complete_database.csv"
+DATA_FILE = "../nutrition_data/complete_database.csv"
 PRODUCTS_NUMBER_RANGE = (5, 15)
 MIN_GRAMS = 50
 MAX_GRAMS = 2000

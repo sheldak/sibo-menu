@@ -1,5 +1,5 @@
 from typing import Dict, Tuple, Union, List
-from product import Solution
+from model.product import Solution
 
 
 class IterativeImprovementsAlgorithm:

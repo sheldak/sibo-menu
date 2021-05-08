@@ -1,9 +1,9 @@
-from typing import Callable, DefaultDict, Dict, Tuple, Union, List
-from product import Product, Solution
+from typing import Callable, DefaultDict, Dict, Tuple, List
+from model.product import Product, Solution
 from dataclasses import dataclass
 from collections import defaultdict
 import numpy as np
-import copy
+
 
 @dataclass
 class LooseLimitsAlgorithm: 
@@ -75,7 +75,7 @@ class LooseLimitsAlgorithm:
 
             sol_score = self.calculate_looseness(solution)
             if sol_score == 0:
-                return (solution, 0)
+                return solution, 0
             if sol_score < best_solution_score:
                 temp = max(temp/1.01, 0.05)
                 best_solution_score = sol_score
@@ -83,6 +83,5 @@ class LooseLimitsAlgorithm:
             else:
                 temp = min(temp*1.01, 0.2)
 
-        return (best_solution, best_solution_score)
-        
-            
+        return best_solution, best_solution_score
+
