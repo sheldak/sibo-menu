@@ -46,6 +46,7 @@
     "max_steps": 700,
     "step_rate": 9.0
   },
+  "selection_method": "ranking",
   "selection_params": {
     "k": 900
   },

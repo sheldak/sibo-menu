@@ -12,6 +12,12 @@ import pickle
 
 config = json.load(open('config.json'))
 
+selections = {
+    'ranking': selection_ranking,
+    'tournament': selection_tournament,
+    'roulette': selection_roulette
+}
+
 
 def get_loader_from_file(file_name):
     loader = NutritionDataLoader(file_name)
@@ -49,7 +55,7 @@ def main():
         unary_genetic_operation=mutate,
         binary_genetic_operation=cross,
         model=model,
-        selection_algorithm=selection_ranking,
+        selection_algorithm=selections[config['selection_method']],
     )
 
     try:
