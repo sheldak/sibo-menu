@@ -63,7 +63,7 @@ def main():
     except FileNotFoundError:
         initial_population = initial_improver.correct_solutions(
             generate_initial_solutions(config['initial_solutions_number'], products_loader)
-        )[:config['initial_population_size']]
+        )
         pickle.dump(initial_population, open('initial_population.pkl', 'w+b'))
 
     evolved_population = genetic_algorithm.run_evolution(
