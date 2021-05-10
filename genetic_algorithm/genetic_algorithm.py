@@ -12,26 +12,26 @@ class GeneticAlgorithm:
                  unary_genetic_operation: Callable[[Solution, int, float], Solution],
                  binary_genetic_operation: Callable[[List[Solution], int, bool], Solution],
                  model: Model,
-                 scoring_function: Callable[[Solution, float], float],
-                 improver: Callable[[List[Solution]], List[Solution]] = None):
+                 scoring_function: Callable[[Solution, float], float]):
 
         self.selection_algorithm = selection_algorithm
         self.unary_genetic_operation = unary_genetic_operation
         self.binary_genetic_operation = binary_genetic_operation
         self.model = model
         self.scoring_function = scoring_function
-        self.improver = improver
 
         logging.basicConfig(level=logging.INFO)
         self.logger = logging.getLogger("genetic algorithm")
 
     def _get_population_info(self, population: List[Solution], epoch: int, scoring_params: Dict[str, float]):
         scores = [self.scoring_function(solution, **scoring_params) for solution in population]
+        population_info = [np.min(scores), np.max(scores), np.mean(scores), np.std(scores)]
         self.logger.info(
             'Epoch: {}, minimal score: {}, maximal score: {}, average score: {}, score std: {}'.format(
-                epoch, np.min(scores), np.max(scores), np.mean(scores), np.std(scores)
+                epoch, *population_info
             )
         )
+        return population_info
 
     def _warn_restrictions(self, operation: str, population: List[Solution]):
         violated = len(list(filter(lambda x: x, [self.model.validate(sol) for sol in population])))
@@ -65,18 +65,14 @@ class GeneticAlgorithm:
             mutated = [
                 self.unary_genetic_operation(solution, **unary_op_params) for solution in curr_population
             ]
-            if self.improver:
-                self.improver(mutated)
-            self._warn_restrictions("unary", mutated)
+            self._warn_restrictions("unary operation", mutated)
             mutated = [mutant for mutant in mutated if self.model.validate(mutant)]
 
             copulated = np.apply_along_axis(
                 lambda x: self.binary_genetic_operation(list(x), **binary_op_params), 1,
                 list(filter(lambda x: x[0] != x[1] and len(x[0].products) == len(x[1].products),
                             itertools.product(curr_population, curr_population))))
-            if self.improver:
-                self.improver(copulated)
-            self._warn_restrictions("binary", copulated)
+            self._warn_restrictions("binary operation", copulated)
             copulated = [child for child in copulated if self.model.validate(child)]
 
             curr_population.extend(mutated)
