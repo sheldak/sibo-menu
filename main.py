@@ -62,7 +62,6 @@ def main():
     initial_population = initial_improver.correct_solutions(
         generate_initial_solutions(config['initial_solutions_number'], products_loader)
     )
-    pickle.dump(initial_population, open('initial_population.pkl', 'w+b'))
 
     plot_title = "Selection Method: {}".format(config['selection_method'])
     plt.title(plot_title)
