@@ -5,6 +5,7 @@ from model.model import Model
 import logging
 import numpy as np
 import itertools
+import matplotlib.pyplot as plt
 
 
 class GeneticAlgorithm:
@@ -54,11 +55,12 @@ class GeneticAlgorithm:
                       binary_op_params: Dict[str, Union[int, float, bool]],
                       scoring_params: Dict[str, float]) -> List[Solution]:
 
+        epoch_data = []
         best_population = self.selection_algorithm(initial_population, **selection_params)
         curr_population = initial_population
         for epoch in range(epoch_count):
             curr_population = self.selection_algorithm(curr_population, **selection_params)
-            self._get_population_info(curr_population, epoch, scoring_params)
+            epoch_data.append(self._get_population_info(curr_population, epoch, scoring_params))
             if self._compare(curr_population, best_population, scoring_params):
                 best_population = curr_population
 
@@ -77,5 +79,8 @@ class GeneticAlgorithm:
 
             curr_population.extend(mutated)
             curr_population.extend(copulated)
+
+        epoch_data = np.array(epoch_data)
+        plt.errorbar([epoch for epoch in range(epoch_count)], list(epoch_data[:, 1]), list(epoch_data[:, 2]))
 
         return best_population

@@ -9,6 +9,7 @@ from model.product import Solution
 
 import json
 import pickle
+import matplotlib.pyplot as plt
 
 config = json.load(open('config.json'))
 
@@ -66,14 +67,17 @@ def main():
         )
         pickle.dump(initial_population, open('initial_population.pkl', 'w+b'))
 
+    plot_title = "Selection Method: {}".format(config['selection_method'])
+    plt.title(plot_title)
     evolved_population = genetic_algorithm.run_evolution(
         epoch_count=config['epoch_count'],
         scoring_params=config['scoring_params'],
         selection_params=config['selection_params'],
         unary_op_params=config['unary_op_params'],
         binary_op_params=config['binary_op_params'],
-        initial_population=initial_population
+        initial_population=initial_population,
     )
+    plt.show()
     pickle.dump(evolved_population, open('evolved_population.pkl', 'w+b'))
 
 

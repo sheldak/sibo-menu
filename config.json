@@ -16,7 +16,7 @@
   ],
   "nutrition_data": "nutrition_data/complete_database.csv",
   "mass_range": [5, 2000],
-  "initial_solutions_number": 1500,
+  "initial_solutions_number": 1000,
   "iterative_improvement_config": {
     "restrictions": {
       "calories": [
@@ -47,14 +47,14 @@
   },
   "selection_method": "ranking",
   "selection_params": {
-    "k": 1000
+    "k": 200
   },
   "unary_op_params": {
     "to_mutate": 2,
-    "std": 2.0
+    "std": 5.0
   },
   "binary_op_params": {
-    "cross_points_number": 2,
+    "cross_points_number": 4,
     "preserve_types": true
   },
   "scoring_params": {
