@@ -1,4 +1,4 @@
-from product import Product
+from model.product import Product
 from typing import List
 import pandas as pd
 

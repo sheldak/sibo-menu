@@ -1,4 +1,4 @@
-from product import Solution
+from model.product import Solution
 from random import randint
 
 CATEGORIES = [

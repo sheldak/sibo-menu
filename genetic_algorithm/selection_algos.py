@@ -1,7 +1,8 @@
-from product import Solution
+from model.product import Solution
 from typing import List
-from solution_scoring import solution_score
+from genetic_algorithm.solution_scoring import solution_score
 import numpy as np
+
 
 def selection_ranking(solutions: List[Solution], k: int):
     scores = list(map(solution_score, solutions))

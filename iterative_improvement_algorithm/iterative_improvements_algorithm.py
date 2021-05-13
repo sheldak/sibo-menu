@@ -1,5 +1,7 @@
 from typing import Dict, Tuple, Union, List
-from product import Solution
+from model.product import Solution
+
+import logging
 
 
 class IterativeImprovementsAlgorithm:
@@ -15,11 +17,15 @@ class IterativeImprovementsAlgorithm:
         self.step_rate = step_rate
         self.rate_scheduler = rate_scheduler
 
+        logging.basicConfig(level=logging.INFO)
+        self.logger = logging.getLogger("iterative improver")
+
     def _update_solution(self, restriction: str, solution: Solution, slope: int, epoch: int):
         for product_name, (product_data, product_amount) in solution.products.items():
             product_amount += self.rate_scheduler(epoch, self.step_rate) * slope \
                               * product_data.nutritional_values[restriction] / 100
-            solution.products[product_name] = (product_data, product_amount)
+            if product_amount >= 0:
+                solution.products[product_name] = (product_data, product_amount)
 
     def _dominant_restriction(self, solution: Solution) -> Union[Tuple[str, int], None]:
         violations = []
@@ -38,8 +44,8 @@ class IterativeImprovementsAlgorithm:
         if not violations:
             return None
 
-        violations.sort(key=lambda x: x[1])
-        return violations[-1][0], violations[-1][2]
+        violations.sort(key=lambda x: x[1], reverse=True)
+        return violations[0][0], violations[0][2]
 
     def correct_solutions(self, solutions: List[Solution]):
         for epoch in range(self.max_steps):
@@ -50,4 +56,7 @@ class IterativeImprovementsAlgorithm:
                     self._update_solution(restriction, solution, slope, epoch)
 
         corrected = [solution for solution in solutions if self._dominant_restriction(solution) is None]
+        self.logger.info("Iterative improver produced initial population of size {} out of {}".format(
+            len(corrected), len(solutions)
+        ))
         return corrected

@@ -1,7 +1,7 @@
 from nutrition_data.nutrition_data_loader import NutritionDataLoader
 from iterative_improvement_algorithm.iterative_improvements_algorithm import IterativeImprovementsAlgorithm
 from random import randint
-from product import Solution
+from model.product import Solution
 from main import Model
 
 import numpy as np

@@ -1,6 +1,6 @@
 import numpy as np
 from typing import List
-from product import Solution
+from model.product import Solution
 import random
 
 
