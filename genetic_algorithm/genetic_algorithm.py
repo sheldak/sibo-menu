@@ -34,8 +34,17 @@ class GeneticAlgorithm:
         )
         return population_info
 
+    def _get_uniqueness_info(self, operation: str, population: List[Solution]):
+        unique_solution_count = len(set(map(lambda x: tuple(sorted(x.products.items())), population)))
+        unique_product_count = len(set(map(lambda x: tuple(sorted(x.products.keys())), population)))
+        self.logger.info(
+            'After {}: number of unique solutions: {}, number of unique product lists: {}'.format(
+                operation, str(unique_solution_count), str(unique_product_count)
+            )
+        )
+
     def _warn_restrictions(self, operation: str, population: List[Solution]):
-        violated = len(list(filter(lambda x: x, [self.model.validate(sol) for sol in population])))
+        violated = len(list(filter(lambda x: not x, [self.model.validate(sol) for sol in population])))
         in_use = len(population) - violated
         self.logger.warning(
             '{} created {} solutions that violate restrictions. {} will be used.'.format(
@@ -61,6 +70,7 @@ class GeneticAlgorithm:
         for epoch in range(epoch_count):
             curr_population = self.selection_algorithm(curr_population, **selection_params)
             epoch_data.append(self._get_population_info(curr_population, epoch, scoring_params))
+            self._get_uniqueness_info("selection", curr_population)
             if self._compare(curr_population, best_population, scoring_params):
                 best_population = curr_population
 
@@ -69,6 +79,7 @@ class GeneticAlgorithm:
             ]
             self._warn_restrictions("unary operation", mutated)
             mutated = [mutant for mutant in mutated if self.model.validate(mutant)]
+            self._get_uniqueness_info("mutation", mutated)
 
             copulated = np.apply_along_axis(
                 lambda x: self.binary_genetic_operation(list(x), **binary_op_params), 1,
@@ -76,6 +87,7 @@ class GeneticAlgorithm:
                             itertools.product(curr_population, curr_population))))
             self._warn_restrictions("binary operation", copulated)
             copulated = [child for child in copulated if self.model.validate(child)]
+            self._get_uniqueness_info("copulation", copulated)
 
             curr_population.extend(mutated)
             curr_population.extend(copulated)
