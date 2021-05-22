@@ -5,7 +5,6 @@ from itertools import groupby, chain
 
 import numpy as np
 
-from time import time
 
 class AcoVertex:
 
@@ -27,7 +26,7 @@ class AcoVertex:
         self.internal_layer = internal_layer
         self.external_layer = external_layer
 
-        self.internal_edges = np.array(list(map(lambda x: float(x.content.name != self.content.name), internal_layer)))
+        self.internal_edges = np.where([(self.content.name != x.content.name) for x in internal_layer], 1.0, 0.0)
         self.external_edges = np.full(len(external_layer), 1.0 / len(external_layer))
 
         self.internal_edges /= np.sum(self.internal_edges)
@@ -62,15 +61,23 @@ class AcoGraph:
                  product_copies: int,
                  alpha: float = 1.0):
 
-        products = [list(group) for _key, group in
-                    groupby(sorted(chain.from_iterable(map(
-                        lambda x: [(x, mass) for mass in
-                                   np.arange(1.0, alpha * x.safety_limit, (alpha * x.safety_limit / product_copies))],
-                        loader.generate_products(categories, category_count)
-                    )),
-                        key=lambda x: x[0].food_type),
-                        key=lambda x: x[0].food_type)
-                    ]
+        products = [
+            list(group) for _key, group in
+            groupby(
+                sorted(
+                    chain.from_iterable(
+                        map(
+                            lambda x: [(x, mass) for mass in np.arange(
+                                1.0, alpha * x.safety_limit, (alpha * x.safety_limit / product_copies)
+                            )],
+                            loader.generate_products(categories, category_count)
+                        )
+                    ),
+                    key=lambda x: x[0].food_type
+                ),
+                key=lambda x: x[0].food_type
+            )
+        ]
 
         vertices = [
             list(map(lambda x: AcoVertex(x[0], x[1][0], x[1][1]), enumerate(product_group)))
@@ -84,4 +91,3 @@ class AcoGraph:
 
     def __getitem__(self, item):
         return self.layers[item]
-
