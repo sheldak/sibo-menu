@@ -1,6 +1,6 @@
 from nutrition_data.nutrition_data_loader import NutritionDataLoader
 from loose_limits_algorithm.loose_limits_algorithm import LooseLimitsAlgorithm
-from main import Model
+from genetic_main import Model
 
 import numpy as np
 

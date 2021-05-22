@@ -74,7 +74,7 @@ def main():
         initial_population=initial_population,
     )
     plt.show()
-    pickle.dump(evolved_population, open('evolved_population.pkl', 'w+b'))
+    pickle.dump(evolved_population, open('.pickled/evolved_population.pkl', 'w+b'))
 
 
 if __name__ == "__main__":
