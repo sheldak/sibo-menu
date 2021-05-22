@@ -62,6 +62,6 @@
   },
   "epoch_count": 10,
   "numpy_random_state": 42,
-  "aco_total_product_count": 100,
-  "product_copies": 30
+  "aco_total_product_count": 200,
+  "product_copies": 40
 }

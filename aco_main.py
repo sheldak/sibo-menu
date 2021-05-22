@@ -18,8 +18,9 @@ def main():
 
     products_range = config['restrictions']['products_number']
     product_count = np.random.randint(products_range[0], products_range[1])
-    per_category_count = [max(1, product_count // len(categories))] * len(categories)
+
     aco_graph = AcoGraph(categories, category_count, loader, config['product_copies'])
+    per_category_count = [max(1, product_count // len(categories))] * len(categories)
 
 
 if __name__ == '__main__':
