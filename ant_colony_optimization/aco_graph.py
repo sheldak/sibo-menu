@@ -45,6 +45,11 @@ class AcoVertex:
         self.external_edges[u.id] = value
 
     def start_ant_walk(self, category_counts: List[int]):
+        '''
+        :param category_counts: How many products from each category do we want in a solution, constructed by this walk
+        :return: Iterator of products that may create a solution.
+        '''
+
         current_vertex = self
         for category_count in category_counts:
             for _ in range(category_count - 1):
@@ -60,6 +65,14 @@ class AcoGraph:
                  loader: NutritionDataLoader,
                  product_copies: int,
                  alpha: float = 1.0):
+
+        '''
+        :param categories: List of food categories recognized by NutritionDataLoader
+        :param category_count: How many products from each category do we want in a graph
+        :param loader: NutritionDataLoader instance
+        :param product_copies: How many vertices we want to create from one product sampled by data loader
+        :param alpha: This parameter governs our tolerance for the value of cost function
+        '''
 
         products = [
             list(group) for _key, group in
