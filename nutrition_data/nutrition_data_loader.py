@@ -7,6 +7,7 @@ class NutritionDataLoader:
 
     def __init__(self, data_path):
         self.data = pd.read_csv(data_path, sep=';')
+        self.sample_replace = False
 
     def initial_preprocessing(self):
         self.data.pop("ID")
@@ -21,10 +22,15 @@ class NutritionDataLoader:
 
         self.data["carbs"] += sugars
 
+    def allow_replacement_sampling(self):
+        self.sample_replace = True
+
     def generate_products(self, categories: List[str], category_counts: List[int]) -> List[Product]:
         rows = pd.concat(
-            [self.data[self.data["food_type"].str.contains(category)].sample(n=category_count)
-             for category, category_count in zip(categories, category_counts)]
+            [self.data[self.data["food_type"].str.contains(category)].sample(
+                n=category_count, replace=self.sample_replace
+            )
+                for category, category_count in zip(categories, category_counts)]
         )
 
         products = [Product(
