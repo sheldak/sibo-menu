@@ -14,6 +14,11 @@
     "Grains and Pasta",
     "Fruits"
   ],
+  "categories_count": [2,2,2,2,2,2],
+  "aco":{
+    "pheromone_decrease_ratio": 0.99,
+    "Q": 0.99
+  },
   "nutrition_data": "nutrition_data/complete_database.csv",
   "mass_range": [5, 2000],
   "initial_solutions_number": 1000,
