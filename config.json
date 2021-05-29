@@ -16,8 +16,11 @@
   ],
   "categories_count": [2,2,2,2,2,2],
   "aco":{
-    "pheromone_decrease_ratio": 0.99,
-    "Q": 0.99
+    "ants_count": 10,
+    "iterations": 100,
+    "pheromone_decrease_ratio": 0.95,
+    "Q": 10,
+    "solutions_count": 10
   },
   "nutrition_data": "nutrition_data/complete_database.csv",
   "mass_range": [5, 2000],

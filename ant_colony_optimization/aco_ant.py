@@ -41,5 +41,6 @@ def calculate_nutritions(solution: Solution) -> DefaultDict[str, float]:
             nutritions_acc[nutrition_name] = nutritions_acc[nutrition_name] + (nutrition_ammount/100)*product_ammount
     return nutritions_acc
 
-def calculate_pheromone_ammount(solution: Solution, Q: float, solution_cost_function: Callable) -> float:
+
+def calculate_pheromone_amount(solution: Solution, Q: float, solution_cost_function: Callable) -> float:
     return Q / solution_cost_function(solution)

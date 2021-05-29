@@ -1,7 +1,8 @@
 from model.product import Solution
 from ant_colony_optimization.aco_graph import AcoGraph
-from ant_colony_optimization.aco_ant import Ant, calculate_pheromone_ammount, calculate_nutritions
+from ant_colony_optimization.aco_ant import Ant, calculate_pheromone_amount, calculate_nutritions
 from genetic_main import get_loader_from_file
+import matplotlib.pyplot as plt
 
 import json
 import numpy as np
@@ -12,19 +13,22 @@ config = json.load(open('config.json'))
 
 restrictions = config["restrictions"]
 
+
 def simple_cost(r_d, r_u, x):
     if x < r_d:
         return np.exp((r_d - x)/50)
     elif x <= r_u:
-        return 1
+        return 0
     else:
         return np.exp((x - r_u)/50)
+
 
 cost_functions = {
     nutr: lambda x: simple_cost(
         restrictions[nutr][0], 
         restrictions[nutr][1], x) for nutr in ["calories", "carbs", "protein", "fat"]
 }
+
 
 def calculate_solution_cost(solution: Solution):
     nutritions_acc = calculate_nutritions(solution)
@@ -35,6 +39,21 @@ def calculate_solution_cost(solution: Solution):
             ) for nutrition_name, cost_func in cost_functions.items()
         ]
     )
+
+
+def plot(solutions_costs, ants_count):
+    iterations_averages = []
+    for i in range(len(solutions_costs) // ants_count):
+        sublist = solutions_costs[i*ants_count:(i+1)*ants_count]
+        iterations_averages.append(sum(sublist) // len(sublist))
+
+    plt.plot(np.arange(len(solutions_costs) // ants_count), iterations_averages)
+    plt.title("Iterations averages")
+    plt.xlabel("Iterations")
+    plt.ylabel("Average cost")
+    plt.yscale("log")
+
+    plt.show()
 
 
 def main():
@@ -55,8 +74,18 @@ def main():
     Q = config["aco"]["Q"]
 
     # Create ants (they can be used multiple times)
-    ants = [Ant(aco_graph, categories_count) for i in range(10)]
-    for _ in range(10):
+    ants_count = config["aco"]["ants_count"]
+    iterations = config["aco"]["iterations"]
+
+    ants = [Ant(aco_graph, categories_count) for _ in range(ants_count)]
+
+    solutions = []
+    solutions_costs = []
+    worst_taken_solution = None
+    worst_taken_solution_cost = 10**9
+    solutions_count = config["aco"]["solutions_count"]
+
+    for _ in range(iterations):
         
         # Let ants find solutions
         for ant in ants: 
@@ -65,10 +94,28 @@ def main():
         # Pheromone evaporation
         aco_graph.decrease_pheromone(pheromone_decrease_ratio)
 
-        # Add new pheromones
+        # Add new pheromones and if good enough, then add to the best solutions list
         for ant in ants:
-            ammount = calculate_pheromone_ammount(ant.get_solution(), Q, calculate_solution_cost)
-            ant.leave_pheromone(ammount)
+            amount = calculate_pheromone_amount(ant.get_solution(), Q, calculate_solution_cost)
+            ant.leave_pheromone(amount)
+
+            solution = ant.get_solution()
+            solution_cost = calculate_solution_cost(solution)
+            if len(solutions) < solutions_count:
+                solutions.append((solution, solution_cost))
+                worst_taken_solution, worst_taken_solution_cost = max(solutions, key=lambda sol: sol[1])
+            elif solution_cost < worst_taken_solution_cost:
+                solutions.remove((worst_taken_solution, worst_taken_solution_cost))
+                solutions.append((solution, solution_cost))
+                worst_taken_solution, worst_taken_solution_cost = max(solutions, key=lambda sol: sol[1])
+
+            solutions_costs.append(solution_cost)
+
+    plot(solutions_costs, ants_count)
+
+    for solution in sorted(solutions, key=lambda sol: sol[1]):
+        print(solution[1], solution[0])
+
 
 if __name__ == '__main__':
     main()
