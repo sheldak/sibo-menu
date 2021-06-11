@@ -12,26 +12,35 @@ config = json.load(open('config.json'))
 # np.random.seed(config['numpy_random_state'])
 
 restrictions = config["restrictions"]
+restrictions_weights = config["restrictions_weights"]
 
 
-def simple_cost(r_d, r_u, x):
+def simple_cost(r_d, r_u, x, nutrition):
     if x < r_d:
-        return np.exp((r_d - x)/50)
+        return (r_d - x) * restrictions_weights[nutrition]
     elif x <= r_u:
         return 0
     else:
-        return np.exp((x - r_u)/50)
+        return (x - r_u) * restrictions_weights[nutrition]
 
 
 cost_functions = {
-    nutr: lambda x: simple_cost(
-        restrictions[nutr][0], 
-        restrictions[nutr][1], x) for nutr in ["calories", "carbs", "protein", "fat"]
+    "calories": (lambda x: simple_cost(restrictions["calories"][0], restrictions["calories"][1], x, "calories")),
+    "carbs": (lambda x: simple_cost(restrictions["carbs"][0], restrictions["carbs"][1], x, "carbs")),
+    "protein": (lambda x: simple_cost(restrictions["protein"][0], restrictions["protein"][1], x, "protein")),
+    "fat": (lambda x: simple_cost(restrictions["fat"][0], restrictions["fat"][1], x, "fat"))
 }
 
 
 def calculate_solution_cost(solution: Solution):
     nutritions_acc = calculate_nutritions(solution)
+
+    # return sum([
+    #     simple_cost(
+    #         restrictions["calories"][0],
+    #         restrictions["calories"][1], nutritions_acc["calories"], "calories"),
+    # ])
+
     return sum(
         [
             cost_func(
@@ -51,7 +60,6 @@ def plot(solutions_costs, ants_count):
     plt.title("Iterations averages")
     plt.xlabel("Iterations")
     plt.ylabel("Average cost")
-    plt.yscale("log")
 
     plt.show()
 
@@ -114,7 +122,9 @@ def main():
     plot(solutions_costs, ants_count)
 
     for solution in sorted(solutions, key=lambda sol: sol[1]):
+        print(calculate_nutritions(solution[0]))
         print(solution[1], solution[0])
+        calculate_solution_cost(solution[0])
 
 
 if __name__ == '__main__':

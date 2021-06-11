@@ -6,6 +6,12 @@
     "fat": [75, 90],
     "products_number": [12, 15]
   },
+  "restrictions_weights": {
+    "calories": 0.43,
+    "carbs": 3.33,
+    "protein": 13.33,
+    "fat": 12.12
+  },
   "categories": [
     "Vegetables",
     "Meats",
@@ -16,10 +22,10 @@
   ],
   "categories_count": [2,2,2,2,2,2],
   "aco":{
-    "ants_count": 10,
-    "iterations": 100,
-    "pheromone_decrease_ratio": 0.95,
-    "Q": 10,
+    "ants_count": 20,
+    "iterations": 200,
+    "pheromone_decrease_ratio": 0.80,
+    "Q": 5000,
     "solutions_count": 10
   },
   "nutrition_data": "nutrition_data/complete_database.csv",

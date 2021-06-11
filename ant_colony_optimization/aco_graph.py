@@ -122,7 +122,7 @@ class AcoGraph:
                     chain.from_iterable(
                         map(
                             lambda x: [(x, mass) for mass in np.arange(
-                                1.0, alpha * x.safety_limit, (alpha * x.safety_limit / product_copies)
+                                10.0, alpha * x.safety_limit, (alpha * x.safety_limit / product_copies)
                             )],
                             loader.generate_products(categories, category_count)
                         )
